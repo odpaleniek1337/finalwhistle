@@ -12,7 +12,7 @@ class ChromeSelenium:
         self.driver.get(site)
 
     def find_and_click_by_id(self, passed_id: str):
-        self.driver.find_element(By.ID, "onetrust-reject-all-handler").click()
+        self.driver.find_element(By.ID, passed_id).click()
 
     def find_by_class_name(self, passed_name: str):
         return self.driver.find_element(By.CLASS_NAME, passed_name)

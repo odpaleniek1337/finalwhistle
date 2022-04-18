@@ -3,7 +3,7 @@ import sys
 
 from resolvers import resolve_arguments, read_arguments
 from dotenv import load_dotenv
-from factories import ChromeSeleniumFactory
+from factories import ChromeSeleniumFactory, MongoClientFactory
 from flashscore_utils import SUPPORTED_FOOTBALL_COUNTRIES, SUPPORTED_LEAGUES_MAP
 from flashscore_chrome_selenium import find_country_recursive
 
@@ -20,8 +20,12 @@ def main():
     if country not in SUPPORTED_FOOTBALL_COUNTRIES:
         exit("Exiting... country not in supported countries!")
 
-    factory = ChromeSeleniumFactory()
-    flashscore_driver = factory.get_driver()
+    mongo_factory = MongoClientFactory()
+    client = mongo_factory.get_client(os.getenv('DB_URL'))
+    
+    selenium_factory = ChromeSeleniumFactory()
+    flashscore_driver = selenium_factory.get_driver()
+
     flashscore_driver.change_site(os.getenv(sport))
 
     flashscore_driver.find_and_click_by_id("onetrust-reject-all-handler") #reject all cookies and close silly popup

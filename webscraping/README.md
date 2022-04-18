@@ -15,3 +15,6 @@ python src\flashscore-scrapper\main.py
 `
 python src\flashscore-scrapper\main.py -s foOtball --country england -t liverpool
 `
+
+## TODO easy to forget
+- [ ] Need to update requirements in setups
