@@ -39,25 +39,25 @@ class FootballChromeSelenium(ChromeSelenium):
         teams_collected = []
         for team in teams_block:
             team_to_save = {}
-            team_to_save['name'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('text')
-            team_to_save['link'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('href')
+            team_to_save['Name'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('text')
+            team_to_save['Link'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('href')
             mpwdl = self._find_all_by_class_name_within_element(team, FLASHSCORE_ROW_COLS)
-            team_to_save['matches'] = mpwdl[0].get_attribute('innerHTML')
-            team_to_save['wins'] = mpwdl[1].get_attribute('innerHTML')
-            team_to_save['draws'] = mpwdl[2].get_attribute('innerHTML')
-            team_to_save['losses'] = mpwdl[3].get_attribute('innerHTML')
-            team_to_save['goals'] = mpwdl[4].get_attribute('innerHTML')
-            team_to_save['points'] = mpwdl[5].get_attribute('innerHTML')
+            team_to_save['Matches'] = mpwdl[0].get_attribute('innerHTML')
+            team_to_save['Wins'] = mpwdl[1].get_attribute('innerHTML')
+            team_to_save['Draws'] = mpwdl[2].get_attribute('innerHTML')
+            team_to_save['Losses'] = mpwdl[3].get_attribute('innerHTML')
+            team_to_save['Goals'] = mpwdl[4].get_attribute('innerHTML')
+            team_to_save['Points'] = mpwdl[5].get_attribute('innerHTML')
             team_form = self._find_all_by_class_name_within_element(team, FLASHSCORE_ROW_FORM_INSIDE)
             if team_form[0].get_attribute('innerHTML') == '?':
                 start_form = 1
-                team_to_save['next-match'] = regex_search(
+                team_to_save['NextMatch'] = regex_search(
                     '[0-9]{2}.[0-9]{2}.[0-9]{2}', 
                     self._find_by_class_name_within_element(team, FLASHSCORE_ROW_FORM_UNKNWN).get_attribute('title')
                     )[0]
             else:
                 start_form = 0
-            team_to_save['next-match-hour'] = None
-            team_to_save['form'] = ''.join([f.get_attribute('innerHTML') for f in team_form[start_form:]])
+            team_to_save['NextMatchHour'] = None
+            team_to_save['Form'] = ''.join([f.get_attribute('innerHTML') for f in team_form[start_form:]])
             teams_collected.append(team_to_save)
         return teams_collected

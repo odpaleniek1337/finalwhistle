@@ -1,6 +1,7 @@
 from flashscore_chrome_selenium import ChromeSelenium
 from flashscore_football import FootballChromeSelenium
-from pymongo import MongoClient
+from database_connection import MongoManager
+
 
 class ChromeSeleniumFactory:
     def get_driver(self):
@@ -10,6 +11,6 @@ class FootballChromeSeleniumFactory(ChromeSeleniumFactory):
     def get_driver(self):
         return FootballChromeSelenium()
 
-class MongoClientFactory:
-    def get_client(self, conn: str):
-        return MongoClient(conn)
+class MongoManagerFactory:
+    def get_manager(self, conn: str):
+        return MongoManager(conn)
