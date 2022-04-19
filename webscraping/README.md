@@ -16,5 +16,7 @@ python src\flashscore-scrapper\main.py
 python src\flashscore-scrapper\main.py -s foOtball --country england -t liverpool
 `
 
-## TODO easy to forget
+## TODO easy to forget potential improvements
 - [ ] Need to update requirements in setups
+- [ ] Check if connection is established
+- [ ] Add getting theme colors for teams
