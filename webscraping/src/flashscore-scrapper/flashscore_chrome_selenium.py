@@ -1,3 +1,5 @@
+import pickle
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -40,6 +42,17 @@ class ChromeSelenium:
                 element
             )
             element.click()
+
+    def serialize(self, filename: str, serialized_object: object) -> None:
+        '''NOT SAFE'''
+        with open(filename, 'wb') as handle:
+            pickle.dump(serialized_object, handle)
+
+    def deserialize(self, filename: str) -> object:
+        '''NOT SAFE'''
+        with open(filename, 'rb') as handle:
+            data = pickle.load(handle)
+        return data
     
 def _check_country_to_click(one_block: object, country: str):
     block_country = one_block.find_element(By.CLASS_NAME, FLASHSCORE_BLOCK_TEAM_NAME).text.lower()

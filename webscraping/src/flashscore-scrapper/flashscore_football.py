@@ -1,6 +1,3 @@
-import pickle
-import time
-
 from flashscore_chrome_selenium import ChromeSelenium, find_country_recursive
 from flashscore_utils import * #CHANGE IT
 from re import search as regex_search
@@ -64,7 +61,3 @@ class FootballChromeSelenium(ChromeSelenium):
             team_to_save['form'] = ''.join([f.get_attribute('innerHTML') for f in team_form[start_form:]])
             teams_collected.append(team_to_save)
         return teams_collected
-
-    def serialize(self, filename: str, serialized_object: object) -> None:
-        with open(filename, 'wb') as handle:
-            pickle.dump(serialized_object, handle)
