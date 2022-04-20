@@ -1,14 +1,14 @@
-import League from '../models/leagueModel.js';
+import league from '../models/leagueModel.js';
 
 export default {
     Query: {
         leagues: async (parent, args) => {
-            return await League.find();
+            return await league.find();
         }
     },
     Team: {
-        league: async (parent, args) => {
-            return await League.findById(parent.LeagueID);
+        League: async (parent, args) => {
+            return await league.findById(parent.LeagueID);
         }
     }
 };

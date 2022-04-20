@@ -18,8 +18,9 @@ const teamModel = new Schema({
     Form: String,//can add regexes or sth to those
     LeagueID: {
         type: Schema.Types.ObjectId,
-        ref: leagueModel
+        ref: leagueModel,
+        required: true
     }
 });
 
-export default mongoose.model('team', teamModel);
+export default mongoose.model('Team', teamModel, 'Team');

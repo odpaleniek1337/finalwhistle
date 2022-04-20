@@ -2,9 +2,8 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
     extend type Query {
-        Teams(LeagueID: ID!): [Team]
-        Team(id: ID!): Team
-        Team(Name: String!): Team
+        teams(LeagueID: ID!): [Team]
+        team(id: ID!): Team
     }
 
     type Team {
@@ -19,6 +18,6 @@ export default gql`
         NextMatch: String
         NextMatchHour: String
         Form: String
-        LeagueID: ID
+        League: League
     }
 `;

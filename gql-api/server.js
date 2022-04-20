@@ -37,6 +37,7 @@ const port = process.env.PORT || 3000;
         app.use(helmet());
         
         await server.start();
+
         server.applyMiddleware({ app });
         
         app.listen(port, () => {

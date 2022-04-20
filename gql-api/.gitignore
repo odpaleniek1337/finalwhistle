@@ -118,9 +118,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# Manually added
-uploads/*
-!uploads/.gitkeep
-certs
-README.md

@@ -1,14 +1,14 @@
-import Sport from '../models/sportModel.js';
+import sport from '../models/sportModel.js';
 
 export default {
     Query: {
         sports: async (parent, args) => {
-            return await Sport.find();
+            return await sport.find();
         }
     },
     League: {
-        sport: async (parent, args) => {
-            return await Sport.findById(parent.SportID);
+        Sport: async (parent, args) => {
+            return await sport.findById(parent.SportID);
         }
     }   
 }

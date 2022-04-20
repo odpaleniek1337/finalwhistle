@@ -3,16 +3,11 @@ import team from '../models/teamModel.js';
 
 export default {
     Query: {
-        Teams: async (parent, args) => {
+        teams: async (parent, args) => {
             return await team.find({ LeagueID: args.LeagueID })
         },
-        Team: async (parent, args) => {
-            if (args.id) {
-                return await team.findById(args.id);
-            }
-            if (args.Name) {
-                return await team.find({ Name: args.Name })
-            }
+        team: async (parent, args) => {
+            return await team.findById(args.id);
         }
     }
 };

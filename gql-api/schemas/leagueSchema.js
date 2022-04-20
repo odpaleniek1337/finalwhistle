@@ -8,7 +8,7 @@ export default gql`
     type League {
         id: ID
         Name: String
-        LatestUpdate: Date
-        SportID: ID
+        LatestUpdate: String
+        Sport: Sport
     }
 `;

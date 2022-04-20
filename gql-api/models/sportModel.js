@@ -7,4 +7,4 @@ const sportModel = new Schema({
     Name: String
 });
 
-export default mongoose.model('sport', sportModel);
+export default mongoose.model('Sport', sportModel, 'Sport');

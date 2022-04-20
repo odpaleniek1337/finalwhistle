@@ -1,9 +1,9 @@
-import Subscription from "../models/subscriptionModel.js";
+import subscription from "../models/subscriptionModel.js";
 
 export default {
     User: {
-        subscription: async (parent, args) => {
-            return await Subscription.findById(parent.SubscriptionID);
+        Subscription: async (parent, args) => {
+            return await subscription.findById(parent.SubscriptionID);
         }
     }
 };

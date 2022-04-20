@@ -15,8 +15,8 @@ export default gql`
   
   type User {
     id: ID
-    username: String,
-    subscriptionID: Subscription
-    token: String
+    Username: String,
+    Subscription: Subscription
+    Token: String
   }
 `;
