@@ -154,3 +154,4 @@ cython_debug/
 
 # Python custom venv
 webscrap_env
+*.pkl
