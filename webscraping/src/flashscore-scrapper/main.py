@@ -13,8 +13,7 @@ def main():
 
     mongo_factory = MongoManagerFactory()
     database_manager = mongo_factory.get_manager(os.getenv('DB_URL'))
-    if database_manager.check_connection():
-        pass
+    database_manager.check_connection()
     
     if sport == 'FLASHSCORE_FOOTBALL':
         football_selenium_factory = FootballChromeSeleniumFactory()
@@ -22,8 +21,10 @@ def main():
         flashscore_driver.change_site(os.getenv(sport)) #part of the loop in case multiple leagues/targets appear :)
         flashscore_driver.reject_cookies()
 
+        #possibly repetitive 
         league_data, league = flashscore_driver.get_league_with_target(country, target)
         flashscore_driver.serialize(f'{league}.pkl', league_data)
+        #update in database
 
 if __name__ == "__main__":
     main()
