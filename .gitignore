@@ -1,0 +1,7 @@
+
+# from webscraping
+__pycache__
+*.ipynb
+*.env
+*_env
+*.pkl
