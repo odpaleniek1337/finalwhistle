@@ -15,14 +15,14 @@ passport.use(
             if (user === undefined) {
                 return done(null, false, { message: 'Undefined.' });
             }
-            if (!(await bcrypt.compare(password, user.password))) {
+            if (!(await bcrypt.compare(password, user.Password))) {
                 return done(null, false, { message: 'Incorrect password.' });
             }
             const userNoPass = user.toObject();
-            delete userNoPass.password;
+            delete userNoPass.Password;
             return done(null, userNoPass, { message: 'Logged In Successfully' }); 
         } catch (err) {
-            return done(err);
+            return done(err, false, { message: 'Error during Logging in'});
         }
     })
 );
