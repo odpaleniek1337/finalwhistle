@@ -1,6 +1,6 @@
 {
   "name": "project-gql-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Api created to provide communication between frontend and database",
   "main": "start.js",
   "scripts": {
