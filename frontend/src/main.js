@@ -13,4 +13,7 @@ const Vue = createApp(App)
 import router from './routes/index.js';
 Vue.use(router);
 
+import axios from 'axios';
+Vue.config.globalProperties.axios=axios;
+
 Vue.mount("#app");

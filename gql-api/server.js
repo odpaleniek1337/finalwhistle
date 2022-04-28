@@ -26,13 +26,7 @@ const port = process.env.PORT || 3000;
         
         const server = new ApolloServer({
             typeDefs,
-            resolvers,
-            /*context: async({ req, res }) => {
-                if (req) {
-                    const user = await checkAuth(req);
-                    return { user, req };
-                }
-            }*/
+            resolvers
         });
 
         app.use(helmet({

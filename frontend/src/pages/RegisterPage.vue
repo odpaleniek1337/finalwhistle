@@ -27,6 +27,7 @@
 
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 export default {
   data () {
     return {
@@ -37,15 +38,14 @@ export default {
   },
   methods: {
     register () {
-      this.axios.post('http://localhost:3000/graphql', null, { data: {
-          mutation: `
-            mutation registerUser(Username: this.username, Password: this.password) {
-                id
+      this.axios.post('http://localhost:3000/graphql', {
+          query: `mutation {
+            registerUser(username: "${this.username}", password: "${this.password}") {
                 Token
                 Username
-            }
+            }}
           `
-      }})
+      })
       .then(response => {
           Swal.fire({
               title: 'Successfully registered!',
@@ -56,7 +56,7 @@ export default {
           console.log(response.data);
           localStorage.setItem('jwt', response.data.Token);
 
-          setTimeout(() => window.location.reload(true), 2000)
+          //setTimeout(() => window.location.reload(true), 2000)
       })
       .catch(error => {
           Swal.fire({
