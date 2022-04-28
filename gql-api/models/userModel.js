@@ -5,12 +5,11 @@ import subscriptionModel from './subscriptionModel.js';
 const Schema = mongoose.Schema;
 
 const userModel = new Schema({
-    username: {type: String, unique: true},
-    password: {type: String, required: true},
+    Username: { type: String, unique: true, required: true },
+    Password: { type: String, required: true },
     SubscriptionID: {
         type: Schema.Types.ObjectId,
-        ref: subscriptionModel,
-        required: true
+        ref: subscriptionModel
     }
 });
 

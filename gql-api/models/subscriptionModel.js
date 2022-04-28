@@ -7,8 +7,7 @@ const subscriptionModel = new Schema({
     Teams: [
         {
             type: Schema.Types.ObjectId,
-            ref: teamModel,
-            required: true
+            ref: teamModel
         }
     ]
 });
