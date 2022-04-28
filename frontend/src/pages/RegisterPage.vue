@@ -40,9 +40,8 @@ export default {
     register () {
       this.axios.post('http://localhost:3000/graphql', {
           query: `mutation {
-            registerUser(username: "${this.username}", password: "${this.password}") {
+            registerUser(Username: "${this.username}", Password: "${this.password}") {
                 Token
-                Username
             }}
           `
       })
@@ -51,12 +50,14 @@ export default {
               title: 'Successfully registered!',
               icon: 'success'
           })
-          console.log(response);
-          console.log(' ');
-          console.log(response.data);
-          localStorage.setItem('jwt', response.data.Token);
-
-          //setTimeout(() => window.location.reload(true), 2000)
+          if (response.data.errors !== undefined) {
+            throw Error(response.data.errors[0].message)
+          }
+          else {
+            localStorage.setItem('jwt', response.data.data.registerUser.Token);
+            localStorage.setItem('typeDashboard', 4)
+            setTimeout(() => window.location.reload(true), 2000)
+          }
       })
       .catch(error => {
           Swal.fire({

@@ -48,7 +48,10 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: RegisterPage, 
+    component: RegisterPage,
+    beforeEnter: (to, from, next) => {
+      next(handleLogged('/', 2))
+    },
   },
   {
     path: "/user/settings",
@@ -61,5 +64,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+function handleLogged(pathLogged, typeDashboard){
+  var auth = localStorage.getItem('jwt');
+  if (auth == null || auth == ''){
+    localStorage.setItem('typeDashboard', typeDashboard)
+    return 
+  } else {
+    return pathLogged
+  }
+}
 
 export default router;
