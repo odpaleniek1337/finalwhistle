@@ -43,7 +43,10 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: LoginPage, 
+    component: LoginPage,
+    beforeEnter: (to, from, next) => {
+      next(handleLogged('/', 2))
+    },
   },
   {
     path: "/register",

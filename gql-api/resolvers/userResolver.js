@@ -10,17 +10,23 @@ export default {
     Query: {
         user: async (parent, args, {user}) => {
             if (!user) {
-                throw new AuthenticationError();
+                throw new AuthenticationError('Not authenticated!');
             }
             return User.findById(args.id);
         },
-        login: async (parent, args, {req}) => {
-            console.log(args, {req});
-            req.body = args;
-            return await login(req);            
-        },
     },
     Mutation: {
+        login: async (parent, args, {req, res}) => {
+            try {
+                req.body = args;
+                const user = await login(req);
+                console.log('user', user);
+                return user;  
+            } catch (e) {
+                console.log(e);
+                throw new AuthenticationError('Invalid credentials provided!');
+            }
+        },
         registerUser: async (parent, args) => {
             try {
                 const hash = await bcrypt.hash(args.Password, 12);
@@ -33,7 +39,7 @@ export default {
                 };
                 const newUser = new User(userWithHash);
                 const newUserObj = newUser.toObject();
-                const token = jwt.sign(newUserObj, process.env.JWT_SECRET, { expiresIn: "12h" });
+                const token = jwt.sign(newUserObj, process.env.JWT_SECRET);
                 newUser.Token = token;
                 return await newUser.save();
             } catch (err) {

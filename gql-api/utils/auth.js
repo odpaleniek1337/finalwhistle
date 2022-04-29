@@ -14,22 +14,23 @@ const login = (req) => {
             req.login(user, { session: false }, (err) => {
                 if (err) {
                     reject(err);
+                } else {
+                    const Token = jwt.sign(user, process.env.JWT_SECRET);
+                    resolve({...user, Token, id: user._id});
                 }
-                const token = jwt.sign(req.user, process.env.JWT_SECRET, { expiresIn: "12h" });
-                console.log(user, token);
-                resolve({...user, token, id: user._id});
             });
         })(req);
     });
 };
 
 const checkAuth = (req) => {
-    return new Promise((resolve) => {
-        passport.authenticate('jwt', { session: false }, (err, user) => {
+    return new Promise((resolve, reject) => {
+        passport.authenticate('jwt', { session: false }, (err, user, info) => {
             if (err || !user) {
                 resolve(false);
+            } else {
+                resolve(user);
             }
-            resolve(user);
         })(req);
     });
 }

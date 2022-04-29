@@ -9,18 +9,18 @@ import { Strategy as JWTStrategy, ExtractJwt as ExtractJWT } from 'passport-jwt'
 dotenv.config();
 
 passport.use(
-    new Strategy(async (username, password, done) => {
+    new Strategy({ usernameField: "Username", passwordField: "Password"}, async (Username, Password, done) => {
         try {
-            const user = await User.findOne({username});
-            if (user === undefined) {
+            const userToFind = await User.findOne({ Username });
+            if (userToFind === undefined) {
                 return done(null, false, { message: 'Undefined.' });
             }
-            if (!(await bcrypt.compare(password, user.Password))) {
+            if (!(await bcrypt.compare(Password, userToFind.Password))) {
                 return done(null, false, { message: 'Incorrect password.' });
             }
-            const userNoPass = user.toObject();
-            delete userNoPass.Password;
-            return done(null, userNoPass, { message: 'Logged In Successfully' }); 
+            const user = userToFind.toObject();
+            delete user.Password;
+            return done(null, user, { message: 'Logged In Successfully' }); 
         } catch (err) {
             return done(err, false, { message: 'Error during Logging in'});
         }
@@ -32,7 +32,7 @@ passport.use(new JWTStrategy(
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey   : process.env.JWT_SECRET
     },
-    (jwtPayload, done) => {
+    async (jwtPayload, done) => {
         if (jwtPayload) {
             return done(null, { ...jwtPayload }, { message: 'Works.' });
         }
