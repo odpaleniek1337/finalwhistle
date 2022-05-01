@@ -1,24 +1,32 @@
 <template>
   <div class="main-box container p-4">
-    <div class="title-text">Hello, {{this.username}}!</div>
+    <div class="title-text">Hello, {{ this.username }}!</div>
     <div class="dashboard-desc-text">Choose sport</div>
     <div class=".row-cols-md-4 d-flex">
-        <div v-for="{id, Name} in this.sports" :key="id" class="col text-center">
-        <a class="neon-button" v-on:click="test">{{Name}}</a>
+        <div v-for="{ id, Name } in this.sports" :key="id" class="col text-center">
+        <a class="neon-button" v-on:click="test">{{ Name }}</a>
         </div>
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
       <div class="dashboard-desc-text">Competitions</div>
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
-      <div class="dashboard-desc-text">Choose your target </div>
+        <input v-model="this.searchCompetitionItem" type="search" placeholder="Search for competition..." class="w-100"/>
+        <ul class="w-full rounded px-4 py-2 w-100 dashboard-dropdown" v-if="this.searchCompetitionItem.length">
+            <li v-for="competition in foundCompetitions" :key="competition.id" @click="selectCompetition(competition)">
+                {{ competition.Name }}
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+      <div class="dashboard-desc-text">Choose your target</div>
     </div>
     <div class=".row-cols-md-2 d-flex">
         <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
             <a href="/" class="neon-button" style="margin-bottom: 15px;">Cancel</a>
         </div>
         <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
-            <a href="/" class="neon-button" style="margin-bottom: 15px;">Cancel</a>
+            <a v-on:click="saveDashboard" class="neon-button" style="margin-bottom: 15px;">Save</a>
         </div>
     </div>
   </div>
@@ -27,20 +35,23 @@
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import searchCompetition from '../utils/autocompletes.js'
 export default {
   data () {
     return {
       sports: [],
       leagues: [],
       targets: [],
-      chosenSport: [],
-      chosenCompetition: [],
+      chosenSport: {},
+      chosenCompetition: {},
       chosenTargets: [],
+      searchCompetitionItem: '',
+      searchTargetItem: '',
       username: localStorage.getItem('username')
     }
   },
   methods: {
-    fetchSports () {
+      fetchSports () {
         this.axios.post(this.apilink, 
         {
             query: `query { 
@@ -71,7 +82,6 @@ export default {
                 icon: 'error'
             })
         });
-        
     },
     fetchCompetitions () {
         this.axios.post(this.apilink, 
@@ -91,7 +101,6 @@ export default {
             }
         })
         .then(response => {
-            console.log(response.data.data.leagues)
             this.leagues = response.data.data.leagues
             if (response.data.errors !== undefined) {
                 throw Error(response.data.errors[0].message)
@@ -105,8 +114,25 @@ export default {
             })
         });
     },
+    selectCompetition(competition) { 
+        this.chosenCompetition = competition;
+        this.searchCompetitionItem = competition.Name;
+        
+    },
+    saveDashboard () {
+        console.log(2);
+    },
     test () {
         console.log(1);
+    }
+  },
+  computed: {
+    foundCompetitions() {
+        if (this.searchCompetitionItem && this.leagues.length && (this.chosenCompetition.Name != this.searchCompetitionItem)) {
+            return searchCompetition(this.leagues, this.searchCompetitionItem)
+        } else {
+            return []
+        }
     }
   },
   mounted() {
