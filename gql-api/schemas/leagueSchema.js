@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
     extend type Query {
-        leagues: [League]
+        leagues(sportID: ID!): [League]
     }
 
     type League {

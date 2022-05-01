@@ -15,5 +15,6 @@ Vue.use(router);
 
 import axios from 'axios';
 Vue.config.globalProperties.axios=axios;
+Vue.config.globalProperties.apilink='http://localhost:3000/graphql';
 
 Vue.mount("#app");

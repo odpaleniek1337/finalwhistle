@@ -41,20 +41,6 @@
     opacity: 0.7;
 }
   
-.neon-button::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 0 2em 0.5em var(--clr-neon);
-    opacity: 0;
-    background-color: var(--clr-neon);
-    z-index: -1;
-    transition: opacity 100ms linear;
-}
-  
 .neon-button:hover,
 .neon-button:focus,
 .neon-icon:hover,

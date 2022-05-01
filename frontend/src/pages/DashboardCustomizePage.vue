@@ -1,0 +1,122 @@
+<template>
+  <div class="main-box container p-4">
+    <div class="title-text">Hello, {{this.username}}!</div>
+    <div class="dashboard-desc-text">Choose sport</div>
+    <div class=".row-cols-md-4 d-flex">
+        <div v-for="{id, Name} in this.sports" :key="id" class="col text-center">
+        <a class="neon-button" v-on:click="test">{{Name}}</a>
+        </div>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+      <div class="dashboard-desc-text">Competitions</div>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+      <div class="dashboard-desc-text">Choose your target </div>
+    </div>
+    <div class=".row-cols-md-2 d-flex">
+        <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
+            <a href="/" class="neon-button" style="margin-bottom: 15px;">Cancel</a>
+        </div>
+        <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
+            <a href="/" class="neon-button" style="margin-bottom: 15px;">Cancel</a>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+export default {
+  data () {
+    return {
+      sports: [],
+      leagues: [],
+      targets: [],
+      chosenSport: [],
+      chosenCompetition: [],
+      chosenTargets: [],
+      username: localStorage.getItem('username')
+    }
+  },
+  methods: {
+    fetchSports () {
+        this.axios.post(this.apilink, 
+        {
+            query: `query { 
+                sports {
+                    id
+                    Name
+                }
+            }`
+        },
+        {
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => {
+            this.sports = response.data.data.sports;
+            if (response.data.errors !== undefined) {
+                throw Error(response.data.errors[0].message)
+            }
+            this.chosenSport = this.sports[0];
+            this.fetchCompetitions();
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error'
+            })
+        });
+        
+    },
+    fetchCompetitions () {
+        this.axios.post(this.apilink, 
+        {
+            query: `query { 
+                leagues(sportID: "${this.chosenSport.id}") {
+                    id
+                    Name
+                    LatestUpdate
+                }
+            }`
+        },
+        {
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => {
+            console.log(response.data.data.leagues)
+            this.leagues = response.data.data.leagues
+            if (response.data.errors !== undefined) {
+                throw Error(response.data.errors[0].message)
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error'
+            })
+        });
+    },
+    test () {
+        console.log(1);
+    }
+  },
+  mounted() {
+    this.fetchSports();
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+    @import "../scss/pages/customizedashboard.scss";
+    @import "../scss/components/neons.scss";
+    @import "../../node_modules/bootstrap/dist/css/bootstrap-grid.css";
+</style>

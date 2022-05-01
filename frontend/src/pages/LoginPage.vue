@@ -44,10 +44,11 @@ export default {
   methods: {
     login () {
         console.log('login');
-        this.axios.post('http://localhost:3000/graphql', {
+        this.axios.post(this.apilink, {
           query: `mutation {
             login(Username: "${this.username}", Password: "${this.password}") {
                 id
+                Username
                 Token
             }}
           `
@@ -62,8 +63,9 @@ export default {
           }
           else {
             localStorage.setItem('jwt', response.data.data.login.Token);
-            localStorage.setItem('typeDashboard', 1)
-            setTimeout(() => window.location.reload(true), 1000)
+            localStorage.setItem('typeDashboard', 1);
+            localStorage.setItem('username', response.data.data.login.Username);
+            setTimeout(() => window.location.reload(true), 1000);
           }
       })
       .catch(error => {
