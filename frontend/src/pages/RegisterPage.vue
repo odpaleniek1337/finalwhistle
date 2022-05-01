@@ -41,6 +41,7 @@ export default {
       this.axios.post('http://localhost:3000/graphql', {
           query: `mutation {
             registerUser(Username: "${this.username}", Password: "${this.password}") {
+                id
                 Token
             }}
           `
@@ -55,8 +56,8 @@ export default {
           }
           else {
             localStorage.setItem('jwt', response.data.data.registerUser.Token);
-            localStorage.setItem('typeDashboard', 4)
-            setTimeout(() => window.location.reload(true), 2000)
+            localStorage.setItem('typeDashboard', 1)
+            setTimeout(() => window.location.reload(true), 1000)
           }
       })
       .catch(error => {

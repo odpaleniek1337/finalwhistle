@@ -19,6 +19,9 @@ const routes = [
     path: "/user/customizeDashboard",
     name: "dashboardCustomize",
     component: DashboardCustomizePage,
+    beforeEnter: (to, from, next) => {
+      next(handleLogged(null, '/login'))
+    },
   }, 
   /*{
     path: "/chat",
@@ -36,7 +39,7 @@ const routes = [
     component: EventPage,
   }, 
   {
-    path: "/user/customizeTarget/:id",
+    path: "/user/customizeTarget",
     name: "targetCustomize",
     component: TargetSettingsPage,
   }, 
@@ -45,7 +48,7 @@ const routes = [
     name: "login",
     component: LoginPage,
     beforeEnter: (to, from, next) => {
-      next(handleLogged('/', 2))
+      next(handleLogged('/', null))
     },
   },
   {
@@ -53,7 +56,7 @@ const routes = [
     name: "register",
     component: RegisterPage,
     beforeEnter: (to, from, next) => {
-      next(handleLogged('/', 2))
+      next(handleLogged('/', null))
     },
   },
   {
@@ -68,12 +71,13 @@ const router = createRouter({
   routes,
 });
 
-function handleLogged(pathLogged, typeDashboard){
+function handleLogged(pathLogged, pathUnlogged){
   var auth = localStorage.getItem('jwt');
   if (auth == null || auth == ''){
-    localStorage.setItem('typeDashboard', typeDashboard)
-    return 
+    localStorage.setItem('typeDashboard', 0)
+    return pathUnlogged
   } else {
+    localStorage.setItem('typeDashboard', 1)
     return pathLogged
   }
 }

@@ -62,8 +62,8 @@ export default {
           }
           else {
             localStorage.setItem('jwt', response.data.data.login.Token);
-            localStorage.setItem('typeDashboard', 4)
-            setTimeout(() => window.location.reload(true), 2000)
+            localStorage.setItem('typeDashboard', 1)
+            setTimeout(() => window.location.reload(true), 1000)
           }
       })
       .catch(error => {

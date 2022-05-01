@@ -9,17 +9,9 @@
                 </div>
             </div>
             <div class="col-sm text-right">
-                <p v-if="typePage == 4" style="padding-top: 20px; padding-right: 15px">
-                    <a class="neon-button" href="/user/settings">Settings</a>
+                <p v-if="typePage == 1" style="padding-top: 20px; padding-right: 15px">
+                    <a class="neon-button" href="/user/customizeDashboard">Settings</a>
                     <a class="neon-button" v-on:click="logout">Logout</a>
-                </p>
-                <p v-else-if="typePage == 3" style="padding-top: 20px; padding-right: 15px"> 
-                    <a class="neon-button" v-on:click="logout">Logout</a>
-                </p>
-                <p v-else-if="typePage == 2" style="padding-top: 20px; padding-right: 15px"> 
-                    <a class="neon-button" href="/login">Login</a>
-                </p>
-                <p v-else-if="typePage == 1" style="padding-top: 20px; padding-right: 15px"> 
                 </p>
                 <p v-else style="padding-top: 20px; padding-right: 15px"> 
                     <a class="neon-button" href="/login">Login</a>
@@ -31,6 +23,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 export default {
   computed: { 
     typePage: function() { 
@@ -42,7 +36,6 @@ export default {
         localStorage.setItem('typeDashboard', 0);
         localStorage.setItem('jwt', '');
         setTimeout(() => window.location.reload(true), 2000)
-        //LOGOUT CALL
         console.log("LOGOUT");
     }
   }
