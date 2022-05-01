@@ -35,14 +35,11 @@ export default {
     logout () {
         localStorage.setItem('typeDashboard', 0);
         localStorage.setItem('jwt', '');
-<<<<<<< HEAD
-=======
         localStorage.removeItem('username');
         Swal.fire({
                 title: 'Successfully logged out!',
                 icon: 'success'
             })
->>>>>>> c707189 (added auth to fetching leagues, sports; added two-auto-fetches to dashboard customize page)
         setTimeout(() => window.location.reload(true), 2000)
         console.log("LOGOUT");
     }
