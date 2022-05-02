@@ -32,6 +32,13 @@
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
       <div class="dashboard-desc-text">Manage your targets</div>
     </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+        <ul class="w-full rounded px-4 py-2 w-100 dashboard-dropdown dashboard-dropdown-list" v-if="this.chosenTargets.length">
+            <li v-for="target in chosenTargets" :key="target.id" class="border: purple 0.125em solid">
+                {{ target.Name }}
+            </li>
+        </ul>
+    </div>
     <div class=".row-cols-md-2 d-flex">
         <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
             <a href="/" class="neon-button" style="margin-bottom: 15px;">Cancel</a>
@@ -154,14 +161,17 @@ export default {
             })
         });
     },
+    //fetchSubsciptions() {} while loading page or sth
     selectCompetition(competition) { 
         this.chosenCompetition = competition;
         this.searchCompetitionItem = competition.Name;
         this.fetchTargets();
     },
     selectTarget(target) { 
-        this.chosenTargets.push(target);
-        this.searchTargetItem = '';
+        if (!this.chosenTargets.includes(target)) {
+            this.chosenTargets.push(target);
+            this.searchTargetItem = '';
+        }
     },
     saveDashboard () {
         console.log(2);
