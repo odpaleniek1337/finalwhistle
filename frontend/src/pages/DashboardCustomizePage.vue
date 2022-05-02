@@ -36,6 +36,10 @@
         <ul class="w-full rounded px-4 py-2 w-100 dashboard-dropdown dashboard-dropdown-list" v-if="this.chosenTargets.length">
             <li v-for="target in chosenTargets" :key="target.id">
                 {{ target.Name }}
+                <a v-on:click="removeFromChosenTargets(target.id)">
+                    <font-awesome-icon class="neon-icon float-right" icon="circle-xmark"/>
+                </a>
+                <font-awesome-icon class="neon-icon float-right" icon="gear"/>
             </li>
         </ul>
     </div>
@@ -241,9 +245,10 @@ export default {
                 icon: 'error'
             })
         });
+        setTimeout(() => window.location.href='/', 1000);
     },
-    test () {
-        console.log(1);
+    removeFromChosenTargets (id) {
+        this.chosenTargets.splice(this.chosenTargets.findIndex(i => i.id == id), 1);
     }
   },
   computed: {

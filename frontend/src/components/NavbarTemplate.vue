@@ -41,7 +41,7 @@ export default {
                 title: 'Successfully logged out!',
                 icon: 'success'
             })
-        setTimeout(() => window.location.reload(true), 2000)
+        setTimeout(() => window.location.reload(true), 1000)
         console.log("LOGOUT");
     }
   }
