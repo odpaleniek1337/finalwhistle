@@ -20,7 +20,6 @@ export default {
             try {
                 req.body = args;
                 const user = await login(req);
-                console.log('user', user);
                 return user;  
             } catch (e) {
                 console.log(e);
@@ -50,5 +49,11 @@ export default {
                 throw new Error(err);
             }
         },
+        deleteUser: async (parent, args, { user }) => {
+            if (!user) {
+                throw new AuthenticationError('Not authenticated!');
+            }
+            console.log(':(');
+        }
     }
 }

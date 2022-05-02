@@ -14,6 +14,10 @@ export default gql`
       Username: String!,
       Password: String!,
     ): User
+    deleteUser(
+      id: ID!, 
+      Token: String
+    ): User
   }
   
   type User {

@@ -20,4 +20,7 @@ export default gql`
         Form: String
         League: League
     }
+    type TeamIDOnly {
+        id: ID
+    }
 `;

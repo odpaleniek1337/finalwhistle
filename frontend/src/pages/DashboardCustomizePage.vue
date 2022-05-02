@@ -34,7 +34,7 @@
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
         <ul class="w-full rounded px-4 py-2 w-100 dashboard-dropdown dashboard-dropdown-list" v-if="this.chosenTargets.length">
-            <li v-for="target in chosenTargets" :key="target.id" class="border: purple 0.125em solid">
+            <li v-for="target in chosenTargets" :key="target.id">
                 {{ target.Name }}
             </li>
         </ul>

@@ -6,8 +6,10 @@ const Schema = mongoose.Schema;
 const subscriptionModel = new Schema({
     Teams: [
         {
-            type: Schema.Types.ObjectId,
-            ref: teamModel
+            TeamID: {
+                type: Schema.Types.ObjectId,
+                ref: teamModel
+            }
         }
     ]
 });
