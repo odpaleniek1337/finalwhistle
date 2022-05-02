@@ -34,8 +34,9 @@ export default {
   methods: {
     logout () {
         localStorage.setItem('typeDashboard', 0);
-        localStorage.setItem('jwt', '');
+        localStorage.removeItem('jwt');
         localStorage.removeItem('username');
+        localStorage.removeItem('sub_id');
         Swal.fire({
                 title: 'Successfully logged out!',
                 icon: 'success'

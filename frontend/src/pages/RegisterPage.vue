@@ -59,6 +59,7 @@ export default {
             localStorage.setItem('jwt', response.data.data.registerUser.Token);
             localStorage.setItem('typeDashboard', 1)
             localStorage.setItem('username', response.data.data.registerUser.Username);
+            localStorage.setItem('id', response.data.data.registerUser.id);
             setTimeout(() => window.location.reload(true), 1000)
           }
       })

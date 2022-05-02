@@ -18,8 +18,15 @@ const searchTarget = (targets, searchThing) => {
     })
 }
 
+const mapTeams = (teams) => {
+    return teams.map(team => {
+        return { "id": team.id }
+    });
+}
+
 
 export {
     searchCompetition, 
-    searchTarget
+    searchTarget,
+    mapTeams
 }

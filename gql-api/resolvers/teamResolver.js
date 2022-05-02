@@ -16,5 +16,14 @@ export default {
             }
             return await team.findById(args.id);
         }
-    }
+    },
+    Subscription: {
+        Teams: async (parent, args) => {
+            const Teams = []
+            for (const teamIter of parent.Teams) {
+                Teams.push(teamIter._id);
+            }
+            return await team.find({ _id: {$in: Teams}});
+        }
+    },
 };

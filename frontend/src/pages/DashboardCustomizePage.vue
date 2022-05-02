@@ -161,7 +161,42 @@ export default {
             })
         });
     },
-    //fetchSubsciptions() {} while loading page or sth
+    fetchSubsciption() {
+        this.axios.post(this.apilink, 
+        {
+            query: `query { 
+                user(id: "${localStorage.getItem('id')}") {
+                    Subscription {
+                        Teams {
+                            id
+                            Name
+                        }
+                        id
+                    }
+                }
+            }`
+        },
+        {
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => {
+            localStorage.setItem('sub_id', response.data.data.user.Subscription.id);
+            this.chosenTargets = response.data.data.user.Subscription.Teams
+            if (response.data.errors !== undefined) {
+                throw Error(response.data.errors[0].message)
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error'
+            })
+        });
+    },
     selectCompetition(competition) { 
         this.chosenCompetition = competition;
         this.searchCompetitionItem = competition.Name;
@@ -174,7 +209,38 @@ export default {
         }
     },
     saveDashboard () {
-        console.log(2);
+        this.axios.post(this.apilink, 
+        {
+            query: `mutation updateSub($teams: [TeamInput]!) { 
+                updateSubscription(id: "${localStorage.getItem('sub_id')}", Teams: $teams) {
+                    Teams {
+                        id
+                        Name
+                    }
+                }
+            }`,
+            variables: {
+                teams: this.chosenTargets
+            }
+        },
+        {
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => {
+            if (response.data.errors !== undefined) {
+                throw Error(response.data.errors[0].message)
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error'
+            })
+        });
     },
     test () {
         console.log(1);
@@ -198,6 +264,7 @@ export default {
   },
   mounted() {
     this.fetchSports();
+    this.fetchSubsciption();
   }
 }
 </script>
