@@ -1,3 +1,4 @@
+'use strict';
 import league from '../models/leagueModel.js';
 import { AuthenticationError } from 'apollo-server-express';
 
@@ -7,7 +8,7 @@ export default {
             if (!user) {
                 throw new AuthenticationError('Not authenticated!');
             }
-            return await league.find({SportID: args.sportID});
+            return await league.find({ SportID: args.sportID });
         }
     },
     Team: {

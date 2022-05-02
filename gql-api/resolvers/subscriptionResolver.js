@@ -1,3 +1,4 @@
+'use strict';
 import subscription from "../models/subscriptionModel.js";
 
 export default {

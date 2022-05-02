@@ -1,3 +1,4 @@
+'use strict';
 import sport from '../models/sportModel.js';
 import { AuthenticationError } from 'apollo-server-express';
 

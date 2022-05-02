@@ -8,5 +8,18 @@ const searchCompetition = (competitions, searchThing) => {
     })
 }
 
+const searchTarget = (targets, searchThing) => {
+    let matches = 0
+    return targets.filter(target => {
+        if (target.Name.toLowerCase().includes(searchThing.toLowerCase()) && matches < 4) {
+            matches++;
+            return target
+        }
+    })
+}
 
-export default searchCompetition
+
+export {
+    searchCompetition, 
+    searchTarget
+}

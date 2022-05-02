@@ -1,3 +1,4 @@
+'use strict';
 import userResolver from './userResolver.js';
 import leagueResolver from './leagueResolver.js';
 import sportResolver from './sportResolver.js';

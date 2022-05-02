@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
-      <div class="dashboard-desc-text">Competitions</div>
+      <div class="dashboard-desc-text">Choose competition</div>
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
         <input v-model="this.searchCompetitionItem" type="search" placeholder="Search for competition..." class="w-100"/>
@@ -20,6 +20,17 @@
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
       <div class="dashboard-desc-text">Choose your target</div>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+        <input v-model="this.searchTargetItem" type="search" placeholder="Search for target..." class="w-100"/>
+        <ul class="w-full rounded px-4 py-2 w-100 dashboard-dropdown" v-if="this.searchTargetItem.length">
+            <li v-for="target in foundTargets" :key="target.id" @click="selectTarget(target)">
+                {{ target.Name }}
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+      <div class="dashboard-desc-text">Manage your targets</div>
     </div>
     <div class=".row-cols-md-2 d-flex">
         <div class="col text-center" style="margin-right: 0px; margin-left: 0px;">
@@ -35,7 +46,7 @@
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import searchCompetition from '../utils/autocompletes.js'
+import { searchCompetition, searchTarget } from '../utils/autocompletes.js'
 export default {
   data () {
     return {
@@ -72,7 +83,7 @@ export default {
             if (response.data.errors !== undefined) {
                 throw Error(response.data.errors[0].message)
             }
-            this.chosenSport = this.sports[0];
+            this.chosenSport = this.sports[0];//additional variable to switch between sports
             this.fetchCompetitions();
         })
         .catch(error => {
@@ -90,7 +101,6 @@ export default {
                 leagues(sportID: "${this.chosenSport.id}") {
                     id
                     Name
-                    LatestUpdate
                 }
             }`
         },
@@ -114,10 +124,44 @@ export default {
             })
         });
     },
+    fetchTargets () {
+        this.axios.post(this.apilink, 
+        {
+            query: `query { 
+                teams(leagueID: "${this.chosenCompetition.id}") {
+                    id
+                    Name
+                }
+            }`
+        },
+        {
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => {
+            this.targets = response.data.data.teams
+            if (response.data.errors !== undefined) {
+                throw Error(response.data.errors[0].message)
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error'
+            })
+        });
+    },
     selectCompetition(competition) { 
         this.chosenCompetition = competition;
         this.searchCompetitionItem = competition.Name;
-        
+        this.fetchTargets();
+    },
+    selectTarget(target) { 
+        this.chosenTargets.push(target);
+        this.searchTargetItem = '';
     },
     saveDashboard () {
         console.log(2);
@@ -130,6 +174,13 @@ export default {
     foundCompetitions() {
         if (this.searchCompetitionItem && this.leagues.length && (this.chosenCompetition.Name != this.searchCompetitionItem)) {
             return searchCompetition(this.leagues, this.searchCompetitionItem)
+        } else {
+            return []
+        }
+    },
+    foundTargets() {
+        if (this.searchTargetItem && Object.keys(this.chosenCompetition).length) {
+            return searchTarget(this.targets, this.searchTargetItem)
         } else {
             return []
         }
