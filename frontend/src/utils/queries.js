@@ -38,9 +38,37 @@ const getSubscription = (id) => {
         }
     }`
 }
+
+const getSubscriptionMain = (id) => {
+    return `query { 
+        getSubscription(id: "${id}") {
+            Teams {
+              id
+              Name
+              Matches
+              Wins
+              Draws
+              Losses
+              Goals
+              Points
+              Form
+              League {
+                id
+                Name
+                Sport {
+                  id
+                  Name
+                }
+              }
+            }
+        }
+    }`
+}
+
 export {
     getSports, 
     getLeagues,
     getTeams,
-    getSubscription
+    getSubscription,
+    getSubscriptionMain
 }

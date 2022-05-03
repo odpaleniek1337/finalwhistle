@@ -55,10 +55,10 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-import { searchCompetition, searchTarget } from '../utils/autocompletes.js'
-import { getSports, getLeagues, getTeams, getSubscription } from '../utils/queries.js'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { searchCompetition, searchTarget } from '../utils/autocompletes.js';
+import { getSports, getLeagues, getTeams, getSubscription } from '../utils/queries.js';
 export default {
   data () {
     return {

@@ -11,6 +11,7 @@ export default gql`
         Name: String
         Link: String
         Matches: Int
+        Wins: Int
         Draws: Int
         Losses: Int
         Goals: String

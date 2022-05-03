@@ -61,6 +61,7 @@ export default {
             localStorage.setItem('typeDashboard', 1);
             localStorage.setItem('username', response.data.data.login.Username);
             localStorage.setItem('id', response.data.data.login.id);
+            localStorage.setItem('sub_id', response.data.data.login.Subscription.id);
             setTimeout(() => window.location.reload(true), 1000);
           }
       })

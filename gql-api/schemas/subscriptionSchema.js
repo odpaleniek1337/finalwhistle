@@ -1,6 +1,10 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+    extend type Query {
+        getSubscription(id: ID!): Subscription
+    }
+    
     extend type Mutation {
         updateSubscription(id: ID!, Teams: [TeamInput]!): Subscription
     }
