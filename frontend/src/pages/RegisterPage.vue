@@ -28,6 +28,7 @@
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { getRegister } from '../utils/mutations.js'
 export default {
   data () {
     return {
@@ -39,13 +40,7 @@ export default {
   methods: {
     register () {
       this.axios.post(this.apilink, {
-          query: `mutation {
-            registerUser(Username: "${this.username}", Password: "${this.password}") {
-                id
-                Username
-                Token
-            }}
-          `
+          query: getRegister(this.username, this.password)
       })
       .then(response => {
           Swal.fire({

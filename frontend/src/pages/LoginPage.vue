@@ -34,6 +34,7 @@
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { getLogin } from '../utils/mutations.js'
 export default {
   data () {
     return {
@@ -45,13 +46,7 @@ export default {
     login () {
         console.log('login');
         this.axios.post(this.apilink, {
-          query: `mutation {
-            login(Username: "${this.username}", Password: "${this.password}") {
-                id
-                Username
-                Token
-            }}
-          `
+          query: getLogin(this.username, this.password)
       })
       .then(response => {
           Swal.fire({

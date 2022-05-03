@@ -1,7 +1,7 @@
 <template>
     <div class="navbar-template-container container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col">
                 <div style="padding-top: 10px; padding-left: 15px">
                     <a href="/">
                         <font-awesome-icon class="neon-icon" icon="ranking-star" size="3x"/>
@@ -37,6 +37,7 @@ export default {
         localStorage.removeItem('jwt');
         localStorage.removeItem('username');
         localStorage.removeItem('sub_id');
+        localStorage.removeItem('id');
         Swal.fire({
                 title: 'Successfully logged out!',
                 icon: 'success'

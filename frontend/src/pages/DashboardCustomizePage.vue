@@ -58,6 +58,7 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { searchCompetition, searchTarget } from '../utils/autocompletes.js'
+import { getSports, getLeagues, getTeams, getSubscription } from '../utils/queries.js'
 export default {
   data () {
     return {
@@ -76,12 +77,7 @@ export default {
       fetchSports () {
         this.axios.post(this.apilink, 
         {
-            query: `query { 
-                sports {
-                    id
-                    Name
-                }
-            }`
+            query: getSports()
         },
         {
             headers: {
@@ -108,12 +104,7 @@ export default {
     fetchCompetitions () {
         this.axios.post(this.apilink, 
         {
-            query: `query { 
-                leagues(sportID: "${this.chosenSport.id}") {
-                    id
-                    Name
-                }
-            }`
+            query: getLeagues(this.chosenSport.id)
         },
         {
             headers: {
@@ -138,12 +129,7 @@ export default {
     fetchTargets () {
         this.axios.post(this.apilink, 
         {
-            query: `query { 
-                teams(leagueID: "${this.chosenCompetition.id}") {
-                    id
-                    Name
-                }
-            }`
+            query: getTeams(this.chosenCompetition.id)
         },
         {
             headers: {
@@ -168,17 +154,7 @@ export default {
     fetchSubsciption() {
         this.axios.post(this.apilink, 
         {
-            query: `query { 
-                user(id: "${localStorage.getItem('id')}") {
-                    Subscription {
-                        Teams {
-                            id
-                            Name
-                        }
-                        id
-                    }
-                }
-            }`
+            query: getSubscription(localStorage.getItem('id'))
         },
         {
             headers: {
