@@ -251,7 +251,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "../scss/pages/customizedashboard.scss";
+    @import "../scss/pages/dashboard.scss";
     @import "../scss/components/neons.scss";
     @import "../../node_modules/bootstrap/dist/css/bootstrap-grid.css";
 </style>

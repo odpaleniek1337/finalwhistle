@@ -48,6 +48,9 @@ export default {
               icon: 'success'
           })
           if (response.data.errors !== undefined) {
+            this.username = '';
+            this.password = '';
+            this.confirmPassword = '';
             throw Error(response.data.errors[0].message)
           }
           else {
