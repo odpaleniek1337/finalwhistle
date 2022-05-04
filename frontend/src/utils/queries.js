@@ -46,11 +46,6 @@ const getSubscriptionMain = (id) => {
               id
               Name
               Place
-              Matches
-              Wins
-              Draws
-              Losses
-              Goals
               Points
               Form
               League {

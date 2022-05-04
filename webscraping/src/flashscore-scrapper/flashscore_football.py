@@ -57,7 +57,6 @@ class FootballChromeSelenium(ChromeSelenium):
                     )[0]
             else:
                 start_form = 0
-            team_to_save['NextMatchHour'] = None
             team_to_save['Form'] = ''.join([f.get_attribute('innerHTML') for f in team_form[start_form:]])
             teams_collected.append(team_to_save)
         return teams_collected

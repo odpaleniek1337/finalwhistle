@@ -4,7 +4,7 @@
     <div class="dashboard-desc-text">Choose sport</div>
     <div class=".row-cols-md-4 d-flex">
         <div v-for="{ id, Name } in this.sports" :key="id" class="col text-center">
-        <a class="neon-button" v-on:click="test">{{ Name }}</a>
+            <a class="neon-button" v-on:click="switchSport(id)" v-bind:class="{'yellowButton': activeButton == id}">{{ Name }}</a>
         </div>
     </div>
     <div class="row" style="margin-right: 0px; margin-left: 0px;">
@@ -66,6 +66,7 @@ export default {
       leagues: [],
       targets: [],
       chosenSport: {},
+      activeButton: '',
       chosenCompetition: {},
       chosenTargets: [],
       searchCompetitionItem: '',
@@ -87,6 +88,7 @@ export default {
         })
         .then(response => {
             this.sports = response.data.data.sports;
+            this.activeButton = response.data.data.sports[0].id;
             if (response.data.errors !== undefined) {
                 throw Error(response.data.errors[0].message)
             }
@@ -177,6 +179,12 @@ export default {
             })
         });
     },
+    switchSport(index) {
+        this.chosenSport = this.findSportWithID(index);
+        this.activeButton = index;
+        console.log(this.activeButton);
+        this.fetchCompetitions();
+    },
     selectCompetition(competition) { 
         this.chosenCompetition = competition;
         this.searchCompetitionItem = competition.Name;
@@ -225,7 +233,10 @@ export default {
     },
     removeFromChosenTargets (id) {
         this.chosenTargets.splice(this.chosenTargets.findIndex(i => i.id == id), 1);
-    }
+    },
+    findSportWithID(id) {
+        return this.sports.find(sport => sport.id === id)
+    },
   },
   computed: {
     foundCompetitions() {
@@ -241,7 +252,7 @@ export default {
         } else {
             return []
         }
-    }
+    },
   },
   mounted() {
     this.fetchSports();
