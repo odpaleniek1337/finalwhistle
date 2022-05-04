@@ -45,6 +45,7 @@ const getSubscriptionMain = (id) => {
             Teams {
               id
               Name
+              Place
               Matches
               Wins
               Draws

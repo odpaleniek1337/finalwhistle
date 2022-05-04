@@ -8,6 +8,7 @@ const teamModel = new Schema({
     Name: String,
     Link: String,
     Matches: Number,
+    Place: Number,
     Wins: Number,
     Draws: Number,
     Losses: Number,

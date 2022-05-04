@@ -24,9 +24,38 @@ const mapTeams = (teams) => {
     });
 }
 
+const reverseSubscription = (subscription) => {
+    //disgusting function btw
+    const reversed = {
+        Sports: {}
+    }
+    for (const team of subscription) {
+        if (!(team.League.Sport.Name in Object.keys(reversed.Sports))) {
+            reversed.Sports[team.League.Sport.Name] = {
+                Leagues: {}
+            }
+        }
+        
+    }
+    for (const team of subscription) {
+        if (!(team.League.Name in Object.keys(reversed.Sports[team.League.Sport.Name].Leagues))) {
+            reversed.Sports[team.League.Sport.Name].Leagues[team.League.Name] = {
+                Teams: {}
+            }
+        }
+    }
+    for (const team of subscription) {
+        if (!(team.Name in Object.keys(reversed.Sports[team.League.Sport.Name].Leagues[team.League.Name].Teams))) {
+            reversed.Sports[team.League.Sport.Name].Leagues[team.League.Name].Teams[team.Name] = team
+        }
+    }
+    return reversed
+}
+
 
 export {
     searchCompetition, 
     searchTarget,
-    mapTeams
+    mapTeams,
+    reverseSubscription
 }
