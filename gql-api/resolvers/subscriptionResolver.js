@@ -9,7 +9,7 @@ export default {
             if (!user) {
                 throw new AuthenticationError('Not authenticated!');
             }
-           return await subscription.findById(args.id);
+            return await subscription.findById(args.id);
         }
     },
     User: {
@@ -22,15 +22,20 @@ export default {
             if (!user) {
                 throw new AuthenticationError('Not authenticated!');
             }
-            //throw new AuthenticationError('You are not authorized to perform such thing!');
             const subscriptionDB = await subscription.findById(args.id);
             const Teams = []
             for (const teamIter of args.Teams) {
                 const oneTeam = await team.findById(teamIter.id);
-                Teams.push(oneTeam)
+                Teams.push(oneTeam);
             }
             subscriptionDB.Teams = Teams;
-            return await subscription.findOneAndUpdate({ _id: args.id }, subscriptionDB, { new: true })
+            return await subscription.findOneAndUpdate({ _id: args.id }, subscriptionDB, { new: true });
+        },
+        deleteSubscription: async (parent, args, { user }) => {
+            if (!user) {
+                throw new AuthenticationError('Not authenticated!');
+            }
+            return subscription.findOneAndDelete({ _id: args.id});
         }
     }
 };

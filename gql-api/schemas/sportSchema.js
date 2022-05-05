@@ -5,6 +5,10 @@ export default gql`
         sports: [Sport]
     }
 
+    extend type Mutation {
+        addSport(Name: String!): Sport
+    }
+    
     type Sport {
         id: ID
         Name: String

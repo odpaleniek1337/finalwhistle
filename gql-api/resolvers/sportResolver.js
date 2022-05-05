@@ -15,5 +15,14 @@ export default {
         Sport: async (parent, args) => {
             return await sport.findById(parent.SportID);
         }
-    }   
+    },
+    Mutation: {
+        addSport: async (parent, args, {user}) => {
+            if (!user) {
+                throw new AuthenticationError('Not authenticated!');
+            }
+            const newSport = new sport({ ...args, });
+            return newSport.save();
+        }
+    }
 }

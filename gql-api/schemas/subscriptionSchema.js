@@ -7,6 +7,7 @@ export default gql`
     
     extend type Mutation {
         updateSubscription(id: ID!, Teams: [TeamInput]!): Subscription
+        deleteSubscription(id: ID!): Subscription
     }
 
     type Subscription {

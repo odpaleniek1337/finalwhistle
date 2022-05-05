@@ -6,6 +6,10 @@ export default gql`
         team(id: ID!): Team
     }
 
+    extend type Mutation {
+        deleteTeam(id: ID!): Team
+    }
+
     type Team {
         id: ID
         Name: String

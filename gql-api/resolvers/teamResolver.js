@@ -26,4 +26,12 @@ export default {
             return await team.find({ _id: {$in: Teams}});
         }
     },
+    Mutation: {
+        deleteTeam: async (parent, args, { user }) => {
+            if (!user) {
+                throw new AuthenticationError('Not authenticated!');
+            }
+            return await team.findOneAndDelete({ _id: args.id});
+        }
+    }
 };

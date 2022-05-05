@@ -53,7 +53,7 @@ export default {
             if (!user) {
                 throw new AuthenticationError('Not authenticated!');
             }
-            console.log(':(');
+            return await User.findOneAndDelete({ _id: args.id});
         }
     }
 }
