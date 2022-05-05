@@ -41,7 +41,7 @@ const router = createRouter({
   routes,
 });
 
-function handleLogged(pathLogged, pathUnlogged){
+const handleLogged = (pathLogged, pathUnlogged) => {
   var auth = localStorage.getItem('jwt');
   if (auth == null || auth == ''){
     localStorage.setItem('typeDashboard', 0)

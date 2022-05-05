@@ -29,11 +29,6 @@
             By continuing, you agree to our User Agreement and Privacy Policy.
         </div>
       </div>
-      <div class="row" style="padding-left: 23px">
-        <div class="login-text">
-            Example: user: eee pass: eee
-        </div>
-      </div>
     </div>
   </div>
 </template>
