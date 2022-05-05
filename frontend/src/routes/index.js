@@ -1,13 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 import DashboardPage from '../pages/DashboardPage.vue';
 import DashboardCustomizePage from '../pages/DashboardCustomizePage.vue';
-//import ChatPage from '../pages/ChatPage.vue';
-import LeagueStandingsPage from '../pages/LeagueStandingsPage.vue';
 import LoginPage from '../pages/LoginPage.vue';
-import EventPage from '../pages/EventPage.vue';
 import RegisterPage from '../pages/RegisterPage.vue';
-import TargetSettingsPage from '../pages/TargetSettingsPage.vue';
-import UserSettingsPage from '../pages/UserSettingsPage.vue';
 
 const routes = [
   {
@@ -22,26 +17,6 @@ const routes = [
     beforeEnter: (to, from, next) => {
       next(handleLogged(null, '/login'))
     },
-  }, 
-  /*{
-    path: "/chat",
-    name: "chat",
-    component: ChatPage,
-  }, */
-  {
-    path: "/league/:id",
-    name: "leagueStandings",
-    component: LeagueStandingsPage,
-  }, 
-  {
-    path: "/event/:id",
-    name: "eventInfo",
-    component: EventPage,
-  }, 
-  {
-    path: "/user/customizeTarget",
-    name: "targetCustomize",
-    component: TargetSettingsPage,
   }, 
   {
     path: "/login",
@@ -58,11 +33,6 @@ const routes = [
     beforeEnter: (to, from, next) => {
       next(handleLogged('/', null))
     },
-  },
-  {
-    path: "/user/settings",
-    name: "userSettings",
-    component: UserSettingsPage,
   },
 ];
 

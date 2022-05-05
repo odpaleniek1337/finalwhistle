@@ -1,7 +1,6 @@
 'use strict';
 
 const getLogin = (user, pass) => {
-    console.log(user, pass)
     return `mutation {
         login(Username: "${user}", Password: "${pass}") {
             id

@@ -9,7 +9,7 @@ const login = (req) => {
         passport.authenticate('local', { session: false }, (err, user, info) => {
             console.log('login', err, user, info);
             if (err || !user) {
-                reject(info.message);
+                reject(info);
             }
             req.login(user, { session: false }, (err) => {
                 if (err) {

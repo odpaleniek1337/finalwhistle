@@ -12,7 +12,7 @@ passport.use(
     new Strategy({ usernameField: "Username", passwordField: "Password"}, async (Username, Password, done) => {
         try {
             const userToFind = await User.findOne({ Username });
-            if (userToFind === undefined) {
+            if (userToFind === null) {
                 return done(null, false, { message: 'Undefined.' });
             }
             if (!(await bcrypt.compare(Password, userToFind.Password))) {

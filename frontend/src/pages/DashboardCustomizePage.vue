@@ -182,7 +182,6 @@ export default {
     switchSport(index) {
         this.chosenSport = this.findSportWithID(index);
         this.activeButton = index;
-        console.log(this.activeButton);
         this.fetchCompetitions();
     },
     selectCompetition(competition) { 

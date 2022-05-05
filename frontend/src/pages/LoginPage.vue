@@ -4,16 +4,18 @@
       <div class="title-text" style="padding-left: 23px" >LOGIN</div>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="row" style="padding-left: 38px">
-          <div class="login-text" >Username:</div>
-          <input style="width: 200px; min-width: 150px;" type="text" v-model="username" />
+      <form>
+        <div class="row">
+          <div class="row" style="padding-left: 38px">
+            <div class="login-text" >Username:</div>
+            <input style="width: 200px; min-width: 150px;" type="text" v-model="username" autocomplete="username"/>
+          </div>
+          <div class="row" style="padding-left: 38px">
+            <div class="login-text">Password:</div>
+            <input style="width: 200px; min-width: 150px;" type="password" v-model="password" autocomplete="password"/>
+          </div>
         </div>
-        <div class="row" style="padding-left: 38px">
-          <div class="login-text">Password:</div>
-          <input style="width: 200px; min-width: 150px;" type="password" v-model="password" />
-        </div>
-      </div>
+      </form>
       <div class="row" style="padding-left: 23px; padding-top:15px">
         <div class="login-text">
           You don't have an account? Click <a class="link-register-text" href="/register">here</a> to create!
@@ -25,6 +27,11 @@
       <div class="row" style="padding-left: 23px">
         <div class="login-text">
             By continuing, you agree to our User Agreement and Privacy Policy.
+        </div>
+      </div>
+      <div class="row" style="padding-left: 23px">
+        <div class="login-text">
+            Example: user: eee pass: eee
         </div>
       </div>
     </div>
@@ -44,7 +51,6 @@ export default {
   },
   methods: {
     login () {
-        console.log('login');
         this.axios.post(this.apilink, {
           query: getLogin(this.username, this.password)
       })
