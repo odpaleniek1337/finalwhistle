@@ -24,7 +24,10 @@ def main():
         #possibly repetitive 
         league_data, league = flashscore_driver.get_league_with_target(country, target)
         flashscore_driver.serialize(f'{league}.pkl', league_data)
-        #update in database
 
+        #update in database
+        update_target, update_league = database_manager.update_teams(league_data, league.capitalize())
+        if update_target and update_league:
+            print('Successfully updated!')
 if __name__ == "__main__":
     main()

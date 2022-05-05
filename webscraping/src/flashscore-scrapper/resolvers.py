@@ -26,7 +26,7 @@ def resolve_arguments(opts: Tuple) -> Tuple[str, str, str]:
             else:
                 pass
     if not sport or not country or not target:
-        exit("Exiting...")
+        exit(f"One of the arguments was not provided. Exiting... {sport}, {country}, {target}")
     return (sport, country, target)
 
 def _resolve_sport(arg: str) -> str:

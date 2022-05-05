@@ -41,13 +41,14 @@ class FootballChromeSelenium(ChromeSelenium):
             team_to_save = {}
             team_to_save['Name'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('text')
             team_to_save['Link'] = self._find_by_class_name_within_element(team, FLASHSCORE_ROW_NAME).get_attribute('href')
+            team_to_save['Place'] = int(self._find_by_class_name_within_element(team, FLASHSCORE_ROW_PLACE).get_attribute('innerHTML')[:-1])
             mpwdl = self._find_all_by_class_name_within_element(team, FLASHSCORE_ROW_COLS)
-            team_to_save['Matches'] = mpwdl[0].get_attribute('innerHTML')
-            team_to_save['Wins'] = mpwdl[1].get_attribute('innerHTML')
-            team_to_save['Draws'] = mpwdl[2].get_attribute('innerHTML')
-            team_to_save['Losses'] = mpwdl[3].get_attribute('innerHTML')
+            team_to_save['Matches'] = int(mpwdl[0].get_attribute('innerHTML'))
+            team_to_save['Wins'] = int(mpwdl[1].get_attribute('innerHTML'))
+            team_to_save['Draws'] = int(mpwdl[2].get_attribute('innerHTML'))
+            team_to_save['Losses'] = int(mpwdl[3].get_attribute('innerHTML'))
             team_to_save['Goals'] = mpwdl[4].get_attribute('innerHTML')
-            team_to_save['Points'] = mpwdl[5].get_attribute('innerHTML')
+            team_to_save['Points'] = int(mpwdl[5].get_attribute('innerHTML'))
             team_form = self._find_all_by_class_name_within_element(team, FLASHSCORE_ROW_FORM_INSIDE)
             if team_form[0].get_attribute('innerHTML') == '?':
                 start_form = 1
