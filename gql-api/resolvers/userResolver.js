@@ -1,7 +1,7 @@
 'use strict';
 import bcrypt from 'bcrypt';
 import User from '../models/userModel.js';
-import Subscription from '../models/subscriptionModel.js'
+import Subscription from '../models/subscriptionModel.js';
 import jwt from 'jsonwebtoken';
 import { login } from '../utils/auth.js';
 import { ApolloError, AuthenticationError } from 'apollo-server-express';
@@ -29,7 +29,7 @@ export default {
         registerUser: async (parent, args) => {
             try {
                 const hash = await bcrypt.hash(args.Password, 12);
-                const newSubscription = new Subscription({ Teams: []})
+                const newSubscription = new Subscription({ Teams: []});
                 const resultSubscription = await newSubscription.save();
                 const userWithHash = {
                     ...args,
@@ -44,7 +44,7 @@ export default {
             } catch (err) {
                 console.log(err);
                 if (err.name === 'MongoServerError' && err.code === 11000) {
-                    throw new ApolloError('User with that name already exists!')
+                    throw new ApolloError('User with that name already exists!');
                 }
                 throw new Error(err);
             }
@@ -56,4 +56,4 @@ export default {
             return await User.findOneAndDelete({ _id: args.id});
         }
     }
-}
+};

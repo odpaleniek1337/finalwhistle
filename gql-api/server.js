@@ -10,7 +10,7 @@ import { checkAuth } from './utils/auth.js';
 
 dotenv.config();
 
-const isDev = process.env.PROJECTSTAGE === 'Development';
+const isProd = process.env.PROJECTSTAGE === 'Production';
 const port = process.env.PORT || 3000;
 
 (async () => {
@@ -30,9 +30,6 @@ const port = process.env.PORT || 3000;
             context: async ({req, res}) => {
                 if (req) {
                   const user = await checkAuth(req, res);
-                  if (user){
-                      console.log('app', user)
-                  }
                   return {
                     req,
                     res,
@@ -43,8 +40,8 @@ const port = process.env.PORT || 3000;
         });
 
         app.use(helmet({
-            crossOriginEmbedderPolicy: !isDev,
-            contentSecurityPolicy: !isDev,
+            crossOriginEmbedderPolicy: isProd,
+            contentSecurityPolicy: isProd,
           }));
         
         await server.start();

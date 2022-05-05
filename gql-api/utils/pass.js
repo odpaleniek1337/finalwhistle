@@ -9,7 +9,7 @@ import { Strategy as JWTStrategy, ExtractJwt as ExtractJWT } from 'passport-jwt'
 dotenv.config();
 
 passport.use(
-    new Strategy({ usernameField: "Username", passwordField: "Password"}, async (Username, Password, done) => {
+    new Strategy({ usernameField: 'Username', passwordField: 'Password'}, async (Username, Password, done) => {
         try {
             const userToFind = await User.findOne({ Username });
             if (userToFind === null) {

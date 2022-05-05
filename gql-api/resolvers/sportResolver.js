@@ -25,4 +25,4 @@ export default {
             return newSport.save();
         }
     }
-}
+};

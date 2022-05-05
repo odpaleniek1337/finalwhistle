@@ -33,6 +33,6 @@ const checkAuth = (req) => {
             }
         })(req);
     });
-}
+};
 
 export { checkAuth, login };

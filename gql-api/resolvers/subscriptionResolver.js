@@ -1,7 +1,7 @@
 'use strict';
-import { AuthenticationError } from "apollo-server-express";
-import subscription from "../models/subscriptionModel.js";
-import team from "../models/teamModel.js";
+import { AuthenticationError } from 'apollo-server-express';
+import subscription from '../models/subscriptionModel.js';
+import team from '../models/teamModel.js';
 
 export default {
     Query: {
@@ -23,7 +23,7 @@ export default {
                 throw new AuthenticationError('Not authenticated!');
             }
             const subscriptionDB = await subscription.findById(args.id);
-            const Teams = []
+            const Teams = [];
             for (const teamIter of args.Teams) {
                 const oneTeam = await team.findById(teamIter.id);
                 Teams.push(oneTeam);

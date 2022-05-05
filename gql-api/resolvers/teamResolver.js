@@ -1,5 +1,5 @@
 'use strict';
-import { AuthenticationError } from "apollo-server-express";
+import { AuthenticationError } from 'apollo-server-express';
 import team from '../models/teamModel.js';
 
 export default {
@@ -8,7 +8,7 @@ export default {
             if (!user) {
                 throw new AuthenticationError('Not authenticated!');
             }
-            return await team.find({ LeagueID: args.leagueID })
+            return await team.find({ LeagueID: args.leagueID });
         },
         team: async (parent, args, { user }) => {
             if (!user) {
@@ -19,7 +19,7 @@ export default {
     },
     Subscription: {
         Teams: async (parent, args) => {
-            const Teams = []
+            const Teams = [];
             for (const teamIter of parent.Teams) {
                 Teams.push(teamIter._id);
             }
